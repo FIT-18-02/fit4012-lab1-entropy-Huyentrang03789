@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -24,22 +25,37 @@ double calculate_entropy(const string &text) {
 }
 
 double calculate_redundancy(const string &text, int alphabet_size = 256) {
-    // TODO(student): implement redundancy = log2(N) - H(X)
-    // Hint: use calculate_entropy(text)
-    (void)text;
-    (void)alphabet_size;
-    return -1.0;
+    if (text.empty()) {
+        return 0.0;
+    }
+
+    double entropy = calculate_entropy(text);
+    double max_entropy = log2(alphabet_size);
+    
+return max_entropy - entropy;
 }
-
 int main() {
-    string input;
-    cout << "Enter a string of characters: ";
-    getline(cin, input);
+    
+    ofstream logFile("logs/run_log.md");
 
-    double entropy = calculate_entropy(input);
-    double redundancy = calculate_redundancy(input);
+    for (int i = 1; i <= 3; i++) { 
+        string input;
+        cout << "\nEnter string " << i << ": ";
+        getline(cin, input);
 
-    cout << "Entropy: " << entropy << '\n';
-    cout << "Redundancy: " << redundancy << '\n';
+        double entropy = calculate_entropy(input);
+        double redundancy = calculate_redundancy(input);
+
+        cout << "Entropy: " << entropy << '\n';
+        cout << "Redundancy: " << redundancy << '\n';
+
+        logFile << "### Test " << i << "\n";
+        logFile << "Input: " << input << "\n";
+        logFile << "Entropy: " << entropy << "\n";
+        logFile << "Redundancy: " << redundancy << "\n\n";
+    }
+
+    logFile.close(); 
+
     return 0;
 }
