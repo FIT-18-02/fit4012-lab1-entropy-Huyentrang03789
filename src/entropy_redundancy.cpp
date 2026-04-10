@@ -2,60 +2,38 @@
 #include <iostream>
 #include <map>
 #include <string>
-#include <fstream>
+#include <iomanip>
 
 using namespace std;
 
 double calculate_entropy(const string &text) {
-    if (text.empty()) {
-        return 0.0;
-    }
-
+    if (text.empty()) return 0.0;
     map<char, int> freq;
-    for (char c : text) {
-        freq[c]++;
-    }
-
+    for (char c : text) freq[c]++;
+    
     double entropy = 0.0;
     for (const auto &pair : freq) {
-        double p = static_cast<double>(pair.second) / text.size();
+        double p = (double)pair.second / text.size();
         entropy -= p * log2(p);
     }
     return entropy;
 }
 
-double calculate_redundancy(const string &text, int alphabet_size = 256) {
-    if (text.empty()) {
-        return 0.0;
-    }
-
-    double entropy = calculate_entropy(text);
-    double max_entropy = log2(alphabet_size);
-    
-return max_entropy - entropy;
-}
 int main() {
-    
-    ofstream logFile("logs/run_log.md");
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-    for (int i = 1; i <= 3; i++) { 
-        string input;
-        cout << "\nEnter string " << i << ": ";
-        getline(cin, input);
+    string input;
+    while (getline(cin, input)) {
+        if (input.empty()) continue; 
 
         double entropy = calculate_entropy(input);
-        double redundancy = calculate_redundancy(input);
+    
+        double max_entropy = 8.0; 
+        double redundancy = max_entropy - entropy;
 
-        cout << "Entropy: " << entropy << '\n';
-        cout << "Redundancy: " << redundancy << '\n';
-
-        logFile << "### Test " << i << "\n";
-        logFile << "Input: " << input << "\n";
-        logFile << "Entropy: " << entropy << "\n";
-        logFile << "Redundancy: " << redundancy << "\n\n";
+        cout << fixed << setprecision(4) << entropy << " " << redundancy << endl;
     }
-
-    logFile.close(); 
 
     return 0;
 }
