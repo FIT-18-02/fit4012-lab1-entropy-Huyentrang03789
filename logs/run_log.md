@@ -11,7 +11,7 @@
 - [x] Đã chạy với `6 9`
 
 ## Điều em học được từ bài lab
-Viết 3-5 dòng ngắn gọn ở đây.
+
 Qua bài lab, em hiểu cách tính entropy để đo mức độ ngẫu nhiên của dữ liệu và từ đó suy ra độ dư thừa thông tin.  
 Em cũng nắm được điều kiện tồn tại nghịch đảo modulo là khi gcd(a, m) = 1.  
 Ngoài ra, em đã áp dụng thuật toán Euclid mở rộng để tìm nghịch đảo một cách hiệu quả.  
