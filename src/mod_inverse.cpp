@@ -34,7 +34,6 @@ int mod_inverse(int a, int m) {
     }
     return (x % m + m) % m;
 }
-
 int main() {
     int a = 0, m = 0;
     cout << "Nhap a, m: ";
